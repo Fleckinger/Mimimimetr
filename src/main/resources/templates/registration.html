@@ -1,0 +1,42 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<h1>
+    Регистрация
+</h1>
+<form th:action="@{/registration}" th:object = "${userDto}" method="POST">
+    <div>
+        <label>Адрес эл.почты</label>
+        <input type="text" id="email" th:field = "*{email}">
+        <span class="error" th:if="${#fields.hasErrors()}" th:errors="*{email}"></span>
+    </div>
+
+    <div>
+        <label>Подтверждение адреса эл.почты</label>
+        <input type="text" id="confirmedEmail" th:field = "*{confirmedEmail}">
+        <span class="error" th:if="${#fields.hasErrors()}" th:errors="*{confirmedEmail}"></span>
+    </div>
+
+    <div>
+        <label>Пароль</label>
+        <input type="password" id="password" th:field = "*{password}">
+        <span class="error" th:if="${#fields.hasErrors()}" th:errors="*{password}"></span>
+    </div>
+
+    <div>
+        <label>Подтверждение пароля</label>
+        <input type="password" id="confirmedPassword" th:field = "*{confirmedPassword}">
+        <span class="error" th:if="${#fields.hasErrors()}" th:errors="*{confirmedPassword}"></span>
+    </div>
+
+    <div>Уже есть аккаунт? <a href="/login">Войти</a></div>
+
+    <button type="submit">Зарегистрироваться</button>
+
+</form>
+</body>
+</html>

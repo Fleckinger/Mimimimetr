@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.inovus.mimimimetr.dto.UserDto;
 import ru.inovus.mimimimetr.entity.User;
+import ru.inovus.mimimimetr.security.UserRole;
 import ru.inovus.mimimimetr.service.UserService;
 
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult bindingResult) {
+    public String registerUser(@ModelAttribute @Valid UserDto userDto, BindingResult bindingResult) {
         if (!userDto.getEmail().equals(userDto.getConfirmedEmail())) {
             bindingResult.rejectValue("confirmedEmail", "Emails don't match",
                     "Введенные адреса электронной почты не совпадают");
@@ -52,8 +53,9 @@ public class RegistrationController {
 
         User user = new User();
         user.setEmail(userDto.getEmail());
-        user.setPassword(user.getPassword());
+        user.setPassword(userDto.getPassword());
         user.setVotes(new ArrayList<>());
+        user.setRole(UserRole.ROLE_USER);
         userService.registerNewUser(user);
 
         return "login";
