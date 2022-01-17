@@ -10,7 +10,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginPage(Principal principal) {
-        return principal == null ? "login": "redirect:note/all";
+        return principal == null ? "login": "redirect:voting";
     }
 
 }
