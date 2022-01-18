@@ -7,12 +7,12 @@
 <body>
         <form class="loginForm" th:action="@{/login}" method="POST">
             <div>
-                <label>Email</label>
+                <label>Адрес эл.почты</label>
                 <input type="text" id="email" name="username">
             </div>
 
             <div>
-                <label>Password</label>
+                <label>Пароль</label>
                 <input type="password" id="password" name="password">
             </div>
 
@@ -23,10 +23,10 @@
                 Вы вышли из аккаунта.
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit">Войти</button>
 
             <a href="/registration">
-                <button type="button">Register</button>
+                <button type="button">Зарегистрироваться</button>
             </a>
 
         </form>
