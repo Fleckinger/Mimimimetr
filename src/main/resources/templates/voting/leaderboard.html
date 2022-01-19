@@ -3,10 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Leaderboard</title>
+    <style>
+        .parent {
+            margin: 16px;
+            padding: 32px 32px;
+        }
+
+        .child {
+            display: inline-block;
+            padding: 16px 16px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-    <h1 align="center">Мимимиметр</h1>
-    <p align="center">Топ 10</p>
+<h1 align="center">Мимимиметр</h1>
+<p align="center">Топ 10</p>
+
+<td th:each="contender, iterStat : ${top}">
+    <div class="parent" align="center">
+        <div class="child">
+            <h2 th:text="${iterStat.index + 1}"></h2>
+        </div>
+        <div class="child">
+            <img th:src="@{'/images/cats/' + ${contender.getImage()}}">
+        </div>
+        <div class="child">
+            <p th:text="${contender.getName()}"></p>
+        </div>
+    </div>
+</td>
 
 
 </body>
