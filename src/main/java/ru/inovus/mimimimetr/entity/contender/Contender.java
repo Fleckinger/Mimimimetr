@@ -20,7 +20,7 @@ public class Contender {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "contender")
+    @OneToMany(mappedBy = "contender", fetch = FetchType.EAGER)
     private List<Vote> votes;
 
     @Column()
