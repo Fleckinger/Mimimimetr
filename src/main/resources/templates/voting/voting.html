@@ -1,0 +1,33 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting</title>
+    <style>
+        .parent {
+            margin: 16px;
+            padding: 32px 32px;
+        }
+        .child {
+            display: inline-block;
+            padding: 16px 16px;
+        }
+    </style>
+</head>
+<body>
+<h1 align="center">Мимимиметр</h1>
+<h4 align="center">Кто из них мимимишнее? Кликни по фотографии!</h4>
+
+<div align="center" class="parent">
+        <td th:each="contender : ${pair}">
+           <div class="child">
+               <form th:action="@{/voting}" method="POST">
+                   <input type="hidden" name="id" th:value="${contender.getId()}">
+                   <input type="image" th:src="@{'/images/cats/' + ${contender.getImage()}}">
+                   <p th:text="${contender.getName()}"></p>
+               </form>
+           </div>
+        </td>
+</div>
+</body>
+</html>
