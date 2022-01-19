@@ -12,7 +12,7 @@ public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "vote_id")
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "contender_id")
@@ -25,17 +25,17 @@ public class Vote {
     public Vote() {
     }
 
-    public Vote(Integer id, Contender contender, User user) {
+    public Vote(Long id, Contender contender, User user) {
         this.id = id;
         this.contender = contender;
         this.user = user;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,7 +56,7 @@ public class Vote {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object other) { //TODO переделать на getClass
         if (this == other) {
             return true;
         }
