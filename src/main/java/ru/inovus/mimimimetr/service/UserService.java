@@ -1,25 +1,25 @@
 package ru.inovus.mimimimetr.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.inovus.mimimimetr.entity.User;
 import ru.inovus.mimimimetr.repository.UserRepository;
+import ru.inovus.mimimimetr.security.UserDetailsServiceImpl;
 
 import javax.transaction.Transactional;
 
 
 @Service
-@Transactional
+@Transactional //TODO разобраться
 public class UserService {
 
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
@@ -36,13 +36,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @Transactional
-    public void update(User user) {
-
-    }
-
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public User getCurrentUser() {
+        return userDetailsService.getCurrentAuthenticatedUser();
     }
 
 }
