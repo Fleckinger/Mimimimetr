@@ -20,7 +20,7 @@ public class Contender {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "contender")
     private List<Vote> votes;
 
     @Column()
@@ -82,7 +82,7 @@ public class Contender {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof Contender)) {
+        if (!(other instanceof Contender)) { //TODO переделать на getClass
             return false;
         }
         Contender contender = (Contender) other;
