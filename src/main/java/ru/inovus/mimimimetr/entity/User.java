@@ -22,7 +22,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Vote> votes;
 
     @Column(name = "role")
@@ -72,7 +72,7 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object other) { //TODO переделать на getClass
         if (this == other) {
             return true;
         }
