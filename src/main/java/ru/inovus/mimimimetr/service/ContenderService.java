@@ -37,6 +37,10 @@ public class ContenderService {
     public ContenderService() {
     }
 
+    public Contender saveContender(Contender contender) {
+        return contenderRepository.save(contender);
+    }
+
     public Optional<Contender> findById(Long id) {
         return contenderRepository.findById(id);
     }

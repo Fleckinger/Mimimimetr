@@ -13,6 +13,8 @@ import ru.inovus.mimimimetr.service.ContenderService;
 import ru.inovus.mimimimetr.service.PairNotFoundException;
 import ru.inovus.mimimimetr.service.UserService;
 
+import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/voting")
@@ -51,7 +53,7 @@ public class VotingController {
             vote = userService.getCurrentUser().getVotes()
                     .stream()
                     .filter(userVote -> userVote.getContender().getId().equals(selectedContenderId))
-                    .findFirst()
+                    .findAny()
                     .orElseThrow();
         } else {
             vote.setContender(contenderService.findById(selectedContenderId).orElseThrow());

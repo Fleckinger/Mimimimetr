@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/newcontender}" method="POST" enctype="multipart/form-data">
+        <div>
+            <label>Имя:</label>
+            <input type="text" name="name"/>
+            <p th:if="${#fields.hasErrors('name')}">Invalid Age</p>
+        </div>
+
+        <div>
+            <label>Изображение: </label>
+            <input type="file" name="image" accept="image/jpg"/>
+        </div>
+        <input type="submit">
+    </form>
+</body>
+</html>
