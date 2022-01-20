@@ -3,7 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Авторизация</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d6efd;
+            height: 100vh;
+        }
+        #login .container #login-row #login-column #login-box {
+            margin-top: 120px;
+            max-width: 600px;
+            height: 320px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+        #login .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+        #login .container #login-row #login-column #login-box #login-form #register-link {
+            margin-top: -85px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
+<body>
+<div id="login">
+    <h3 class="text-center text-white pt-5">Login form</h3>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="loginForm" th:action="@{/login}" method="POST">
+                        <h3 class="text-center text-primary">Адрес эл.почты</h3>
+                        <div class="form-group">
+                            <input type="text" name="username" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <h3 class="text-center text-primary">Пароль</h3>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                        <div th:if="${param.error}">
+                            Неверный адрес эл.почты или пароль
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-primary btn-md" value="Войти">
+                        </div>
+
+                            <a href="/login" class="text-primary">Зарегистрироваться</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!--
 <body>
         <form class="loginForm" th:action="@{/login}" method="POST">
             <div>
@@ -25,7 +86,7 @@
 
             <button type="submit">Войти</button>
 
-            <a href="/registration">
+            <a href="/login">
                 <button type="button">Зарегистрироваться</button>
             </a>
 
@@ -33,4 +94,4 @@
 
 
 </body>
-</html>
+</html>-->
