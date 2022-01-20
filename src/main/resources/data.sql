@@ -1,4 +1,4 @@
-
+USE heroku_43e3b39e11742df;
 INSERT INTO contender (contender_id, image, name, type)  VALUES
 (1,'1.jpg', 'Соня', 0),
 (2, '2.jpg', 'Бонифаций', 0),
