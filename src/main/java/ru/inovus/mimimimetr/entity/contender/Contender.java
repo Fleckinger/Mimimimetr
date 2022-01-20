@@ -82,7 +82,7 @@ public class Contender {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof Contender)) { //TODO переделать на getClass
+        if (!(other instanceof Contender)) {
             return false;
         }
         Contender contender = (Contender) other;
@@ -104,7 +104,6 @@ public class Contender {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
-                ", votes=" + votes +
                 ", type=" + type +
                 '}';
     }

@@ -72,7 +72,7 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object other) { //TODO переделать на getClass
+    public boolean equals(Object other) {
         if (this == other) {
             return true;
         }
@@ -98,7 +98,6 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", votes=" + votes +
                 ", role=" + role +
                 '}';
     }

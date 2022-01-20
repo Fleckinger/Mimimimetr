@@ -56,7 +56,7 @@ public class Vote {
     }
 
     @Override
-    public boolean equals(Object other) { //TODO переделать на getClass
+    public boolean equals(Object other) {
         if (this == other) {
             return true;
         }
