@@ -1,16 +1,69 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Мимимиметр</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Scrolling Nav - Start Bootstrap Template</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
-<body>
-
-    <h1>
-        Тестовое задание "Мимимиметр"
-    </h1>
-    <a href="/login">Войти</a>
-    <a href="/registration">Зарегистрироваться</a>
-
+<body id="page-top">
+<!-- Header-->
+<header class="bg-primary bg-gradient text-white">
+    <div class="container px-4 text-center">
+        <h1 class="fw-bolder">Мимимиметр</h1>
+        <p class="lead">Оцени мимимишность!</p>
+        <a class="btn btn-lg btn-light" href="/login">Войти</a>
+        <a class="btn btn-lg btn-light" href="/registration">Зарегистрироваться</a>
+    </div>
+</header>
+<!-- About section-->
+<section id="about">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2>Об этом сайте</h2>
+                <p class="lead">Здесь вы можете проголосовать за одного из двух котиков, кликнув по его фото. И так, пока не закончатся все пары. Пары подбираются случайно, но нет повторений пар. Когда пары закончатся вы увидите топ котиков, собранный из голосов всех пользователей.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services section-->
+<section class="bg-light" id="services">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2>Используемые технологии</h2>
+                <ul>
+                    <li>Spring Boot</li>
+                    <li>Spring Data JPA</li>
+                    <li>Spring Validation</li>
+                    <li>Spring Security</li>
+                    <li>Thymeleaf</li>
+                    <li>MySQL</li>
+                    <li>Tomcat web server</li>
+                    <li>Bootstrap</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact section-->
+<section id="contact">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2>Исходный код</h2>
+                <a href=" https://github.com/Fleckinger/Mimimimetr"> https://github.com/Fleckinger/Mimimimetr</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
