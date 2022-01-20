@@ -1,1 +1,0 @@
-web: java %JAVA_OPTS% -jar build/libs/Mimimimetr-0.0.1-SNAPSHOT-plain.jar
