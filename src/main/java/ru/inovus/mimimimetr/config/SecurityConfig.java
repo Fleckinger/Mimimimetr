@@ -29,15 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf().disable() //TODO disable
                 .authorizeRequests()
-                .mvcMatchers("/", "/registration").permitAll()
+                .mvcMatchers("/", "/registration", "/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/voting").permitAll()
                 .and()
-                .logout().permitAll().logoutSuccessUrl("/")
-                .and()
-                .httpBasic();
+                .logout().permitAll().logoutSuccessUrl("/");
     }
 
     @Override
@@ -47,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/resources/**");
+        web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 
     @Bean
