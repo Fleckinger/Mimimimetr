@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.inovus.mimimimetr.entity.contender.ContendersPair;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,5 +18,5 @@ public interface ContendersPairRepository extends JpaRepository<ContendersPair, 
             "OR (pair.firstContender.id = :secondContenderId) " +
             "AND pair.secondContender.id = :firstContenderId " +
             "AND pair.vote.user.id = :userId")
-    Optional<ContendersPair> findPairVotedByUser(Long firstContenderId, Long secondContenderId, Long userId);
+    List<Optional<ContendersPair>> findPairVotedByUser(Long firstContenderId, Long secondContenderId, Long userId);
 }

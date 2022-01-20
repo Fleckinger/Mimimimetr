@@ -12,6 +12,7 @@ import ru.inovus.mimimimetr.repository.ContenderRepository;
 import ru.inovus.mimimimetr.repository.ContendersPairRepository;
 import ru.inovus.mimimimetr.repository.VoteRepository;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,9 +53,14 @@ public class ContenderService {
         for (int i = 0; i < contenders.size() - 1; i++) {
             pair.setFirstContender(contenders.get(i));
             pair.setSecondContender(contenders.get(i + 1));
-            if (!isPairViewedByUser(pair, currentUser)) {
-                return pair;
+            try {
+                if (!isPairViewedByUser(pair, currentUser)) {
+                    return pair;
+                }
+            } catch (NonUniqueResultException exception) {
+                throw new PairNotFoundException();
             }
+
         }
         throw new PairNotFoundException();
 
@@ -81,6 +87,15 @@ public class ContenderService {
     public boolean isPairViewedByUser(ContendersPair pair, User user) {
       return contendersPairRepository
               .findPairVotedByUser(pair.getFirstContender().getId(), pair.getSecondContender().getId(), user.getId())
-              .isPresent();
+              .size() > 0;
+    }
+
+    public boolean isUserAlreadyVotedFor(Long contenderId) {
+        Contender contender = contenderRepository.findById(contenderId).orElseThrow();
+        User currentUser = userService.getCurrentUser();
+
+        return contender.getVotes()
+                .stream()
+                .anyMatch(vote -> vote.getUser().getId().equals(currentUser.getId()));
     }
 }

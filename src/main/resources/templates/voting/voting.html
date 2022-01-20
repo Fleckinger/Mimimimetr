@@ -16,6 +16,9 @@
     </style>
 </head>
 <body>
+
+<div class="navbar" th:replace="~{/fragments/navbar :: navbar}"></div>
+
 <h1 align="center">Мимимиметр</h1>
 <h4 align="center">Кто из них мимимишнее? Кликни по фотографии!</h4>
 
@@ -23,7 +26,7 @@
     <td th:object="${pair}">
         <div class="child">
             <form th:action="@{/voting}" method="POST">
-                <input type="hidden" name="selectedContender" th:value="${pair.getFirstContender().getId()}">
+                <input type="hidden" name="selectedContenderId" th:value="${pair.getFirstContender().getId()}">
                 <input type="hidden" name="secondContenderId" th:value="${pair.getSecondContender().getId()}">
                 <input type="image" th:src="@{'/images/cats/' + ${pair.getFirstContender().getImage()}}">
                 <p th:text="${pair.getFirstContender().getName()}"></p>
@@ -34,7 +37,7 @@
     <td th:object="${pair}">
         <div class="child">
             <form th:action="@{/voting}" method="POST">
-                <input type="hidden" name="selectedContender" th:value="${pair.getSecondContender().getId()}">
+                <input type="hidden" name="selectedContenderId" th:value="${pair.getSecondContender().getId()}">
                 <input type="hidden" name="secondContenderId" th:value="${pair.getFirstContender().getId()}">
                 <input type="image" th:src="@{'/images/cats/' + ${pair.getSecondContender().getImage()}}">
                 <p th:text="${pair.getSecondContender().getName()}"></p>

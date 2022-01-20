@@ -42,16 +42,25 @@ public class VotingController {
     }
 
     @PostMapping("")
-    public String vote(@RequestParam("selectedContender") Long selectedContender,
+    public String vote(@RequestParam("selectedContenderId") Long selectedContenderId,
                        @RequestParam("secondContenderId") Long secondContenderId) {
 
         Vote vote = new Vote();
-        vote.setContender(contenderService.findById(selectedContender).orElseThrow());
-        vote.setUser(userService.getCurrentUser());
-        contenderService.saveVote(vote);
+
+        if (contenderService.isUserAlreadyVotedFor(selectedContenderId)) {
+            vote = userService.getCurrentUser().getVotes()
+                    .stream()
+                    .filter(userVote -> userVote.getContender().getId().equals(selectedContenderId))
+                    .findFirst()
+                    .orElseThrow();
+        } else {
+            vote.setContender(contenderService.findById(selectedContenderId).orElseThrow());
+            vote.setUser(userService.getCurrentUser());
+            contenderService.saveVote(vote);
+        }
 
         ContendersPair pair = new ContendersPair();
-        pair.setFirstContender(contenderService.findById(selectedContender).orElseThrow());
+        pair.setFirstContender(contenderService.findById(selectedContenderId).orElseThrow());
         pair.setSecondContender(contenderService.findById(secondContenderId).orElseThrow());
         pair.setVote(vote);
         contenderService.saveContendersPair(pair);
