@@ -10,10 +10,6 @@ group = 'ru.i-novus'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
-
-
 repositories {
     mavenCentral()
 }
