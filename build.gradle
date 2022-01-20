@@ -1,3 +1,4 @@
+
 plugins {
     id 'org.springframework.boot' version '2.6.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -8,6 +9,10 @@ plugins {
 group = 'ru.i-novus'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+
 
 repositories {
     mavenCentral()
