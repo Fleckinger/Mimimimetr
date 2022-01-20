@@ -9,14 +9,13 @@ import ru.inovus.mimimimetr.security.UserDetailsServiceImpl;
 
 import javax.transaction.Transactional;
 
-
 @Service
-@Transactional //TODO разобраться
+@Transactional
 public class UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService) {
