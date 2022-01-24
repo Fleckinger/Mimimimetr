@@ -13,8 +13,6 @@ import ru.inovus.mimimimetr.service.ContenderService;
 import ru.inovus.mimimimetr.service.PairNotFoundException;
 import ru.inovus.mimimimetr.service.UserService;
 
-import java.util.Optional;
-
 
 @Controller
 @RequestMapping("/voting")
@@ -36,11 +34,11 @@ public class VotingController {
         try {
             pair = contenderService.getPair();
         } catch (PairNotFoundException exception) {
-            return "redirect:/voting/leaderboard";
+            return "redirect:voting/leaderboard";
         }
 
         model.addAttribute("pair", pair);
-        return "/voting/voting";
+        return "voting/voting";
     }
 
     @PostMapping("")
@@ -67,12 +65,12 @@ public class VotingController {
         pair.setVote(vote);
         contenderService.saveContendersPair(pair);
 
-        return "redirect:/voting";
+        return "redirect:voting";
     }
 
     @GetMapping("/leaderboard")
     public String getLeaderboard(Model model) {
         model.addAttribute("top", contenderService.getTop(10));
-        return "/voting/leaderboard";
+        return "voting/leaderboard";
     }
 }

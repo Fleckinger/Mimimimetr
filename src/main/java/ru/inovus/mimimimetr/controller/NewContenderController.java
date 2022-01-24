@@ -54,9 +54,9 @@ public class NewContenderController {
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
-            return "redirect:/newcontender";
+            return "redirect:newcontender";
         }
 
-        return "redirect:/voting";
+        return "redirect:voting";
     }
 }
