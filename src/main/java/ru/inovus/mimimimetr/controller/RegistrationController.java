@@ -14,7 +14,7 @@ import ru.inovus.mimimimetr.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 @Controller
 public class RegistrationController {
@@ -37,7 +37,7 @@ public class RegistrationController {
         if (!userDto.getEmail().equals(userDto.getConfirmedEmail())) {
             bindingResult.rejectValue("confirmedEmail", "Emails don't match",
                     "Введенные адреса электронной почты не совпадают");
-        } else if (userService.emailExists(userDto.getEmail())) {
+        } else if (userService.isEmailExist(userDto.getEmail())) {
             bindingResult.rejectValue("email", "Email already exists",
                     "Адрес электронной почты уже используется");
         }
@@ -54,7 +54,7 @@ public class RegistrationController {
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
-        user.setVotes(new ArrayList<>());
+        user.setVotes(new HashSet<>());
         user.setRole(UserRole.ROLE_USER);
         userService.registerNewUser(user);
 

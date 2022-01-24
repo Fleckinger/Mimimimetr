@@ -1,6 +1,7 @@
 package ru.inovus.mimimimetr.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.inovus.mimimimetr.entity.User;
@@ -8,6 +9,7 @@ import ru.inovus.mimimimetr.repository.UserRepository;
 import ru.inovus.mimimimetr.security.UserDetailsServiceImpl;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,7 +28,7 @@ public class UserService {
 
     public User registerNewUser(User user) {
 
-        if (emailExists(user.getEmail())) {
+        if (isEmailExist(user.getEmail())) {
             throw new UserAlreadyExistsException("Данный email занят");
         }
 
@@ -35,7 +37,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean emailExists(String email) {
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public void update(User user) {
+        userRepository.save(user);
+    }
+
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
+    public boolean isEmailExist(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 

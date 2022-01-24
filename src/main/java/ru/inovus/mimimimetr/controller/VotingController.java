@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.inovus.mimimimetr.entity.User;
 import ru.inovus.mimimimetr.entity.Vote;
-import ru.inovus.mimimimetr.entity.contender.ContendersPair;
-import ru.inovus.mimimimetr.service.ContenderService;
-import ru.inovus.mimimimetr.service.PairNotFoundException;
-import ru.inovus.mimimimetr.service.UserService;
+import ru.inovus.mimimimetr.entity.contender.Contender;
+import ru.inovus.mimimimetr.entity.contender.ContenderView;
+import ru.inovus.mimimimetr.service.*;
+
+import java.util.List;
 
 
 @Controller
@@ -20,50 +22,53 @@ public class VotingController {
 
     private final ContenderService contenderService;
     private final UserService userService;
+    private final VoteService voteService;
+    private final ContenderViewService contenderViewService;
 
     @Autowired
-    public VotingController(ContenderService contenderService, UserService userService) {
+    public VotingController(ContenderService contenderService, UserService userService, VoteService voteService, ContenderViewService contenderViewService) {
         this.contenderService = contenderService;
         this.userService = userService;
+        this.voteService = voteService;
+        this.contenderViewService = contenderViewService;
     }
 
     @GetMapping("")
     public String getContenders(Model model) {
-        ContendersPair pair;
+        List<Contender> contenders;
 
         try {
-            pair = contenderService.getPair();
-        } catch (PairNotFoundException exception) {
+            contenders = contenderService.getContendersWithoutVotesFromUser(userService.getCurrentUser(), 2);
+        } catch (ContendersNotFoundException exception) {
             return "redirect:voting/leaderboard";
         }
 
-        model.addAttribute("pair", pair);
+        model.addAttribute("contenders", contenders);
         return "voting/voting";
     }
 
     @PostMapping("")
-    public String vote(@RequestParam("selectedContenderId") Long selectedContenderId,
-                       @RequestParam("secondContenderId") Long secondContenderId) {
+    public String vote(@RequestParam("selectedContenderId") Long selectedContenderId) {
 
         Vote vote = new Vote();
+        User user = userService.getCurrentUser();
+        Contender contender = contenderService.findById(selectedContenderId).get();
+        ContenderView view = new ContenderView();
+        view.setContender(contenderService.findById(selectedContenderId).get());
+        view.setUser(userService.getCurrentUser());
 
         if (contenderService.isUserAlreadyVotedFor(selectedContenderId)) {
-            vote = userService.getCurrentUser().getVotes()
+            vote = user.getVotes()
                     .stream()
                     .filter(userVote -> userVote.getContender().getId().equals(selectedContenderId))
-                    .findAny()
-                    .orElseThrow();
+                    .findAny().get();
         } else {
-            vote.setContender(contenderService.findById(selectedContenderId).orElseThrow());
-            vote.setUser(userService.getCurrentUser());
-            contenderService.saveVote(vote);
+            vote.setContender(contender);
+            vote.setUser(user);
         }
 
-        ContendersPair pair = new ContendersPair();
-        pair.setFirstContender(contenderService.findById(selectedContenderId).orElseThrow());
-        pair.setSecondContender(contenderService.findById(secondContenderId).orElseThrow());
-        pair.setVote(vote);
-        contenderService.saveContendersPair(pair);
+        voteService.save(vote);
+        contenderViewService.save(view);
 
         return "redirect:voting";
     }

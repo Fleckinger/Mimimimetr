@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Controller("/")
 public class NewContenderController {
@@ -39,10 +40,10 @@ public class NewContenderController {
         Contender contender = new Contender();
         contender.setName(name);
         contender.setType(ContenderType.CAT);
-        contender.setVotes(new ArrayList<>());
-        contender = contenderService.saveContender(contender);
+        contender.setVotes(new HashSet<>());
+        contender = contenderService.save(contender);
         contender.setImage(contender.getId() + ".jpg");
-        contenderService.saveContender(contender);
+        contenderService.save(contender);
 
         String fileName = contender.getId().toString() + ".jpg";
         Path uploadPath = Paths.get("src/main/resources/static/images/cats/");
