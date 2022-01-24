@@ -56,17 +56,11 @@ public class Vote {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof Vote)) {
-            return false;
-        }
-        Vote vote = (Vote) other;
-        return Objects.equals(id, vote.id)
-                && Objects.equals(contender, vote.contender)
-                && Objects.equals(user, vote.user);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vote vote = (Vote) o;
+        return Objects.equals(id, vote.id) && Objects.equals(contender, vote.contender) && Objects.equals(user, vote.user);
     }
 
     @Override

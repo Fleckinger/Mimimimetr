@@ -6,6 +6,7 @@ import ru.inovus.mimimimetr.security.UserRole;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -23,7 +24,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Vote> votes;
+    private Set<Vote> votes;
 
     @Column(name = "role")
     private UserRole role;
@@ -55,11 +56,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Vote> getVotes() {
+    public Set<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(List<Vote> votes) {
+    public void setVotes(Set<Vote> votes) {
         this.votes = votes;
     }
 
@@ -72,24 +73,16 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof User)) {
-            return false;
-        }
-        User otherUser = (User) other;
-        return Objects.equals(id, otherUser.id)
-                && Objects.equals(email, otherUser.email)
-                && Objects.equals(password, otherUser.password)
-                && Objects.equals(votes, otherUser.votes)
-                && Objects.equals(role, otherUser.role);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, votes, role);
+        return Objects.hash(id, email, password, role);
     }
 
     @Override

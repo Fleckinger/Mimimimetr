@@ -5,6 +5,7 @@ import ru.inovus.mimimimetr.entity.Vote;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "contender")
@@ -21,7 +22,7 @@ public class Contender {
     private String image;
 
     @OneToMany(mappedBy = "contender", fetch = FetchType.EAGER)
-    private List<Vote> votes;
+    private Set<Vote> votes;
 
     @Column()
     private ContenderType type;
@@ -29,7 +30,7 @@ public class Contender {
     public Contender() {
     }
 
-    public Contender(Long id, String name, String image, List<Vote> votes, ContenderType type) {
+    public Contender(Long id, String name, String image, Set<Vote> votes, ContenderType type) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -61,11 +62,11 @@ public class Contender {
         this.image = image;
     }
 
-    public List<Vote> getVotes() {
+    public Set<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(List<Vote> votes) {
+    public void setVotes(Set<Vote> votes) {
         this.votes = votes;
     }
 
@@ -78,24 +79,16 @@ public class Contender {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof Contender)) {
-            return false;
-        }
-        Contender contender = (Contender) other;
-        return Objects.equals(id, contender.id)
-                && Objects.equals(name, contender.name)
-                && Objects.equals(image, contender.image)
-                && Objects.equals(votes, contender.votes)
-                && type == contender.type;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contender contender = (Contender) o;
+        return Objects.equals(id, contender.id) && Objects.equals(name, contender.name) && Objects.equals(image, contender.image) && type == contender.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, image, votes, type);
+        return Objects.hash(id, name, image, type);
     }
 
     @Override
